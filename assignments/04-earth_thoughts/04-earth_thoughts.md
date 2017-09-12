@@ -6,5 +6,5 @@
   - Use `vagrant ssh` to connect to the virtual ubuntu server
   - Find the `/var/www/scripts` folder on the ubuntu server
   - Type `python app.py`  
-  - This will open a server on 127.0.0.1:5050
+  - This will open a server on 127.0.0.1:5050/home
   - Clicking on the green button will refresh the  earth porn image and shower thought.
