@@ -72,6 +72,14 @@ def get_thought():
 def home():
     return send_file('../index.html')
 
+#
+@app.route('/css/bootstrap.min.css')
+def css():
+    return (send_file('../css/bootstrap.min.css'))
+
+@app.route('/js/<path:filename>')
+def js():
+    return (send_file('../js/'+filanme))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5050)
