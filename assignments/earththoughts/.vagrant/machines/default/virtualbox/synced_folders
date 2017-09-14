@@ -1,0 +1,1 @@
+{"virtualbox":{"/var/www":{"guestpath":"/var/www","hostpath":"/home/cwcook/Documents/FullStack-Cook/assignments/earththoughts/www","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/home/cwcook/Documents/FullStack-Cook/assignments/earththoughts","disabled":false,"__vagrantfile":true}}}
