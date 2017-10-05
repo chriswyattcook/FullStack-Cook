@@ -6,7 +6,7 @@ from flask import jsonify
 from flask import *
 import random
 import sys,os
-
+from flask import send_from_directory
 
 app = Flask(__name__)
 CORS(app)
@@ -65,8 +65,17 @@ def get_thought():
 
     #print(thought_list)
 
-
     return jsonify({"success":True,"thought":thought_list[0]})
+
+@app.route('/js/<path:filename>')
+def serve_static_js(filename):
+    root_dir = os.path.dirname(os.getcwd())
+    return send_from_directory(os.path.join(root_dir, 'js'), filename)
+
+@app.route('/css/<path:filename>')
+def serve_static_css(filename):
+    root_dir = os.path.dirname(os.getcwd())
+    return send_from_directory(os.path.join(root_dir, 'css'), filename)
 
 @app.route('/home')
 def home():

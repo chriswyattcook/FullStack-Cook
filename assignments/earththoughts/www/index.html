@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,12 +13,10 @@
     <title>Earth Thoughts</title>
 
     <!-- Bootstrap core CSS -->
-    <script
-    src="/js/jquery-3.2.1.min.js"
-    ></script>
-    <script src="/js/popper.min.js"></script>
-    
-    <script src="/js/bootstrap.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/js/popper.min.js"></script>
+
+    <script language="JavaScript" type="text/javascript" src="/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
 
@@ -27,43 +26,43 @@
 
 </head>
 
-<body>
+<body id="main_image">
     <div class="container">
-    <div class="header clearfix">
-        <h3 class="text-muted">Earth Porn and Shower Thoughts</h3>
-    </div>
+        <div class="header clearfix">
+            <h3 class="text-muted">Earth Thoughts</h3>
+        </div>
 
-    <div class="jumbotron" id="main_image">
-        <h1></h1>
-        <p class="lead" id="main_text">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        
-    </div>
-    <p><a class="btn btn-lg btn-success" href=""http://localhost:5050/get_image""http://localhost:5050/get_thought"" role="button">Get Another?</a></p>
+        <div>
+            <h1></h1>
+            <p class="lead" id="main_text">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <h1></h1>
+        </div>
+        <p><a class="btn btn-lg btn-success" href="" http://localhost:5050/get_image ""http://localhost:5050/get_thought "" role="button">Get Another?</a></p>
 
-    </div> <!-- /container -->
+    </div>
+    <!-- /container -->
     <script>
         $(function() {
-            console.log( "ready!" );
-            $.get( "http://localhost:5050/get_image", function( data ) {
-            
+            console.log("ready!");
+            $.get("http://localhost:5050/get_image", function(data) {
+
                 console.log(data.url)
-                $('#main_image').css('background-image','url('+data.url+')');
+                $('#main_image').css('background-image', 'url(' + data.url + ')');
             });
         });
-
     </script>
     <script>
         $(function() {
-            console.log( "ready!" );
-            $.get( "http://localhost:5050/get_thought", function( data ) {
-            
+            console.log("ready!");
+            $.get("http://localhost:5050/get_thought", function(data) {
+
                 console.log(data.thought)
                 thought = data.thought
-                document.getElementById("main_text").textContent=thought;
+                document.getElementById("main_text").textContent = thought;
             });
         });
-
     </script>
 
 </body>
+
 </html>
