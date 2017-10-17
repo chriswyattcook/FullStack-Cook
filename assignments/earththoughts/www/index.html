@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/images/favicon.png">
+
+    <title>Earth Thoughts</title>
+
+    <!-- Bootstrap core CSS -->
+    <script language="JavaScript" type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/js/popper.min.js"></script>
+
+    <script language="JavaScript" type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+    <!-- Custom styles for this template -->
+    <link href="/css/jumbotron-narrow.css" rel="stylesheet">
+
+
+</head>
+
+<body id="main_image">
+    <div class="container">
+        <div class="header clearfix">
+            <h3 class="text-muted">Earth Thoughts</h3>
+        </div>
+
+        <div>
+            <h1></h1>
+            <p class="lead" id="main_text">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <h1></h1>
+        </div>
+        <p><a class="btn btn-lg btn-success" href="" http://localhost:5050/get_image ""http://localhost:5050/get_thought "" role="button">Get Another?</a></p>
+
+    </div>
+    <!-- /container -->
+    <script>
+        $(function() {
+            console.log("ready!");
+            $.get("http://localhost:5050/get_image", function(data) {
+
+                console.log(data.url)
+                $('#main_image').css('background-image', 'url(' + data.url + ')');
+            });
+        });
+    </script>
+    <script>
+        $(function() {
+            console.log("ready!");
+            $.get("http://localhost:5050/get_thought", function(data) {
+
+                console.log(data.thought)
+                thought = data.thought
+                document.getElementById("main_text").textContent = thought;
+            });
+        });
+    </script>
+
+</body>
+
+</html>
