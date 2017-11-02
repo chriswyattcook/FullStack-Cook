@@ -57,7 +57,7 @@
 
         function delete_users() {
             $.ajax({
-                url: "http://chriswcook.xyz/api.php/user/",
+                url: "http://chriswcook.xyz/useradmin-api/api.php/delete_user/",
                 type: 'DELETE',
                 success: function(data) {
                     console.log(data);
@@ -70,7 +70,7 @@
 
         function get_users() {
             $.ajax({
-                url: "http://chriswcook.xyz/api.php/user/",
+                url: "http://chriswcook.xyz/useradmin-api/api.php/find_user",
                 type: 'GET',
                 success: function(data) {
                     load_data_tables(data);
@@ -84,22 +84,23 @@
             var newobj = {
                 "data": []
             };
+
             for (let i = 0; i < data.length; i++) {
                 temp = [
-                    data[i].name.first,
-                    data[i].name.last,
+                    data[i].first,
+                    data[i].last,
                     data[i].phone,
                     data[i].nat,
-                    data[i].location.city,
+                    data[i].city,
                     data[i].dob,
                     data[i].email,
-                    data[i].login.username,
-                    data[i].login.password,
+                    data[i].username,
+                    data[i].password,
                     '<i class="fa fa-pencil-square-o edit_user" aria-hidden="true" data-id="' + data[i]['_id'] + '"></i> <i class="fa fa-trash delete_user" aria-hidden="true" data-id="' + data[i]['_id'] + '"></i>'
                 ];
                 newobj["data"].push(temp);
             }
-            console.log(JSON.stringify(newobj));
+            //console.log(JSON.stringify(newobj));
 
             var table = $('#example').DataTable({
                 "data": newobj.data,
