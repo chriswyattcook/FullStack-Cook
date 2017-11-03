@@ -1,1 +1,1 @@
-chriswcook.xyz/whereswaldo/waldo.html
+<http://chriswcook.xyz/whereswaldo/waldo.html>
