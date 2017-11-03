@@ -1,0 +1,1 @@
+chriswcook.xyz/whereswaldo/waldo.html
