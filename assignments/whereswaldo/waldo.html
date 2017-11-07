@@ -11,6 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+
     <title>Where's Waldo?</title>
 
     <!-- Bootstrap core CSS -->
@@ -38,6 +39,149 @@
             margin-left: auto;
             margin-right: auto;
         }
+        /*
+ * Copyright (c) 2013 Thibaut Courouble
+ * http://www.cssflow.com
+ * Licensed under the MIT License
+ *
+ * Sass/SCSS source: https://goo.gl/6mAaF
+ * PSD by Julien Debove: https://goo.gl/9bKUp
+ */
+        
+        html,
+        body {
+            min-height: 100%;
+        }
+        
+        body {
+            font: 12px/20px 'Lucida Grande', Verdana, sans-serif;
+            color: #404040;
+            background: #eee;
+            background-image: -webkit-radial-gradient(circle cover, #edf0f0, #d7d9da 80%);
+            background-image: -moz-radial-gradient(circle cover, #edf0f0, #d7d9da 80%);
+            background-image: -o-radial-gradient(circle cover, #edf0f0, #d7d9da 80%);
+            background-image: radial-gradient(circle cover, #edf0f0, #d7d9da 80%);
+        }
+        
+        .clock {
+            margin: 50px auto;
+            text-align: center;
+            cursor: default;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        .clock-block {
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            width: 100px;
+            height: 98px;
+            margin: 0 8px;
+            padding-top: 16px;
+            line-height: 1;
+            font-family: Helvetica, Arial, sans-serif;
+            text-align: center;
+            text-shadow: 0 1px rgba(255, 255, 255, 0.3);
+            background: #e5e7eb;
+            border: 1px solid #9fa2ad;
+            border-radius: 3px 3px 2px 2px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            background-image: -webkit-linear-gradient(top, #f1f2f5, #e5e7eb 20%, #c2c5d1 50%, #e5e7eb 80%, #e4e5eb);
+            background-image: -moz-linear-gradient(top, #f1f2f5, #e5e7eb 20%, #c2c5d1 50%, #e5e7eb 80%, #e4e5eb);
+            background-image: -o-linear-gradient(top, #f1f2f5, #e5e7eb 20%, #c2c5d1 50%, #e5e7eb 80%, #e4e5eb);
+            background-image: linear-gradient(to bottom, #f1f2f5, #e5e7eb 20%, #c2c5d1 50%, #e5e7eb 80%, #e4e5eb);
+            -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .clock-block:before,
+        .clock-block:after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: -1px;
+            right: -1px;
+            z-index: -1;
+            height: 4px;
+            background: #cacfd9;
+            border: 1px solid #9fa2ad;
+            border-radius: 2px;
+            -webkit-box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .clock-block:before {
+            bottom: -7px;
+        }
+        
+        .clock-val {
+            display: block;
+            position: relative;
+            z-index: 1;
+            font-size: 64px;
+            font-weight: bold;
+            color: #4f5258;
+        }
+        
+        .clock-val:before,
+        .clock-val:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
+        
+        .clock-val:before {
+            z-index: -1;
+            top: -16px;
+            bottom: 50%;
+            border-radius: 2px 2px 0 0;
+            -webkit-box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+        
+        .clock-val:after {
+            top: 50%;
+            bottom: -16px;
+            border-top: 1px solid rgba(60, 62, 68, 0.4);
+            border-radius: 0 0 2px 2px;
+            background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0) 50%);
+            background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0) 50%);
+            background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0) 50%);
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0) 50%);
+            -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 1px rgba(255, 255, 255, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+        
+        .clock-unit {
+            display: block;
+            margin-top: -2px;
+            font-size: 13px;
+            font-weight: 200;
+            color: #6b707a;
+            text-transform: capitalize;
+        }
+        
+        .clock-unit:after {
+            content: '';
+            position: absolute;
+            z-index: -2;
+            top: 100%;
+            left: -1px;
+            right: -1px;
+            height: 30px;
+            margin-top: 6px;
+            border-radius: 0 0 3px 3px;
+            background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0));
+            background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0));
+            background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0));
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0));
+        }
     </style>
 
 </head>
@@ -47,25 +191,25 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
         <div class="container">
-            <a class="navbar-brand" href="#">Start Bootstrap</a>
+            <a class="navbar-brand" href="#">This leads to nothing!</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home
+                        <a class="nav-link" href="#">Nothing
                 <span class="sr-only">(current)</span>
               </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="#">Nothing</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
+                        <a class="nav-link" href="#">Nothing</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="#">Nothing</a>
                     </li>
                 </ul>
             </div>
@@ -74,70 +218,79 @@
 
     <!-- Page Content -->
 
-
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <label id="minutes">00</label>:<label id="seconds">00</label>
-                <script type="text/javascript">
-                    var minutesLabel = document.getElementById("minutes");
-                    var secondsLabel = document.getElementById("seconds");
-                    var totalSeconds = 0;
-                    setInterval(setTime, 1000);
-
-
-
-                    function setTime() {
-                        if (notClicked == 1) {
-                            console.log("We are coutning");
-                            ++totalSeconds;
-                            secondsLabel.innerHTML = pad(totalSeconds % 60);
-                            minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-                        } else {
-                            return;
-                        }
-                    }
-
-                    function pad(val) {
-                        var valString = val + "";
-                        if (valString.length < 2) {
-                            return "0" + valString;
-                        } else {
-                            return valString;
-                        }
-                    }
-                </script>
-            </div>
-            <div class="col-12 col-md-auto mycenter">
-                <img src="./images/1.jpg" id="thumb">
-            </div>
-            <div class="col col-lg-2"></div>
+</html>
+<div class="container">
+    <div class="row">
+        <div class="col">
         </div>
+        <div class="col-12 col-md-auto mycenter">
+            <img src="./images/1.jpg" id="thumb">
+        </div>
+        <div class="col col-lg-2"></div>
     </div>
+</div>
+<p class="clock">
+    <span class="clock-block">
+                      <span class="clock-val" id="minutes">00</span>
+    <span class="clock-unit">minutes</span>
+    </span>
+    <span class="clock-block">
+                      <span class="clock-val" id="seconds">00</span>
+    <span class="clock-unit">seconds</span>
+    </span>
+</p>
+<script type="text/javascript">
+    var minutesLabel = document.getElementById("minutes");
+    var secondsLabel = document.getElementById("seconds");
+    var totalSeconds = 0;
+    setInterval(setTime, 1000);
 
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/bootstrap.bundle.min.js"></script>
-    <script src="./js/Event.js"></script>
-    <script src="./js/Magnifier.js"></script>
-    <script>
-        var evt = new Event();
-        var m = new Magnifier(evt);
 
-        m.attach({
-            thumb: '#thumb',
-            large: 'http://chriswcook.xyz/whereswaldo/images/1.jpg',
-            mode: 'inside',
-            zoom: 3,
-            zoomable: true
-        });
+    function setTime() {
+        if (notClicked == 1) {
+            console.log("We are coutning");
+            ++totalSeconds;
+            secondsLabel.innerHTML = pad(totalSeconds % 60);
+            minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+        } else {
+            return;
+        }
+    }
 
-        $(".mycenter").click(function(evt) {
-            console.log(evt);
-            notClicked = 0;
-        });
-    </script>
+    function pad(val) {
+        var valString = val + "";
+        if (valString.length < 2) {
+            return "0" + valString;
+        } else {
+            return valString;
+        }
+    }
+</script>
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.bundle.min.js"></script>
+<script src="./js/Event.js"></script>
+<script src="./js/Magnifier.js"></script>
+<script>
+    var evt = new Event();
+    var m = new Magnifier(evt);
+
+    m.attach({
+        thumb: '#thumb',
+        large: 'http://chriswcook.xyz/whereswaldo/images/1.jpg',
+        mode: 'inside',
+        zoom: 3,
+        zoomable: true
+    });
+
+    $(".mycenter").click(function(evt) {
+        console.log(evt);
+        notClicked = 0;
+    });
+</script>
 
 </body>
 
