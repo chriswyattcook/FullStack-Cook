@@ -1,1 +1,1 @@
-https://chriswcook.xyz/earththoughts
+chriswcook.xyz/earththoughts
