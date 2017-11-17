@@ -69,7 +69,7 @@ class mongoHelper{
         }
 
         foreach($documents as $doc){
-            if(!is_array($doc) && !$this->isAssoc($doc)){
+            if(!$this->isAssoc($doc)){
                 return array("error"=>"document not associative array.");
             }
             $_ids[] = $bulk->insert($doc);
@@ -128,12 +128,16 @@ class mongoHelper{
      *      $docs = $mymongo->query(["category"=>"Laptop"],["_id"=>0,"price"=>1]);
      *      // this finds all docs where category == laptop and only returns the prices
      */
-    function query($filter=[],$options=[]){
+    function query($filter=[],$projection=[]){
         if(!$this->db_coll_set()){
             return ["error"=>"db or collection not set."];
         }
         $results = [];
-                
+        
+        $options = [
+           'projection' => $projection,
+        ];
+        
         if(array_key_exists('_id',$filter) && strlen($filter['_id']) >= 24){
             $filter['_id'] = new MongoDB\BSON\ObjectID($filter['_id']);
         }
@@ -188,55 +192,6 @@ class mongoHelper{
 
     }
     
-    /**
-     * delete - Supposed to get a max id from collection
-     *
-     * @params:
-     *    $mdb     string : database name
-     *    $coll    string : collection name
-     *    $field   string : field
-     *
-     * @returns:
-     *     max        int : max id 
-     *
-     */
-    function get_max_id($mdb,$coll,$field){
-        $prevmdb = $this->mdb;
-        $prevcollection = $this->collection;
-
-        $max_log = new thelog();
-        
-     	$this->setMdb($mdb);		//set db
-     	$this->setDbcoll($coll);    //set collection
-         
-        $check = $this->query();	//run query
-
-        // total hack !!!!!
-
-        return sizeof($check) + 1;
-
-        // need to rewrite / test below
-        if(sizeof($check) > 0){
-            if(array_key_exists($check[0],$field)){
-                $options = [				//sort descending so largest val at index 0
-                    'sort' => [
-                        $field => -1
-                    ],
-                ];
-                $max = $this->query([],$options);	//run query
-                $max =  (array)$max[0];				//convert to array so I can index
-                $max = $max[$field];
-            }
-        }else{
-            $max = 0;
-        }
-        											
-     	$this->setMdb($prevmdb);			  //re-set db
-     	$this->setDbcoll($prevcollection);    //re-set collection
-											
-		return 	$max;
-    }
-    
     private function isAssoc(array $arr){
         if (array() === $arr) return false;
         return array_keys($arr) !== range(0, count($arr) - 1);
@@ -255,10 +210,7 @@ class thelog{
     function clear_log(){
         file_put_contents($this->filename,'');
     }
-    function do_log($data,$comment=null){
-    	if($comment){
-    		file_put_contents($this->filename,$comment."\n",FILE_APPEND);
-    	}
+    function do_log($data){
         file_put_contents($this->filename,print_r($data,true),FILE_APPEND);
         file_put_contents($this->filename,"\n",FILE_APPEND);
     }
@@ -268,20 +220,20 @@ class thelog{
 
 if($argv[1] == 'run_tests'){
     $products = [
-        ["pid"=>1, "product_name"=>"Apple IPhone 6", "price"=>"$630", "category"=>"Mobile Phone" ],
-        [ "pid"=>3, "product_name"=>"Samsung T.V", "price"=>"$900", "category"=>"Electronics"],
-        [ "pid"=>4, "product_name"=>"Apple IPAD", "price"=>"$400", "category"=>"Tablet" ],
-        [ "pid"=>5, "product_name"=>"MacBook Pro", "price"=>"$800", "category"=>"Laptop"],
-        [ "pid"=>6, "product_name"=>"Dell Laptop", "price"=>"$620", "category"=>"Laptop"],
-        ["pid"=>7, "product_name"=>"Canon EOS 700D DSLR Camera", "price"=>"$400", "category"=>"Camera"], 
-        ["pid"=>8, "product_name"=>"Nikon D7100 DSLR Camera ", "price"=>"$440", "category"=>"Camera"],
-        ["pid"=>9, "product_name"=>"HTC Phone", "price"=>"$200", "category"=>"Mobile Phone"],
-        ["pid"=>10, "product_name"=>"LG Monitor", "price"=>"$500", "category"=>"Electronics"],
-        [ "pid"=>11, "product_name"=>"Samsung Printer", "price"=>"$320", "category"=>"Electronics"],
-        [ "pid"=>12, "product_name"=>"Samsung Gear Live Black - Made for Android", "price"=>"$250", "category"=>"Watch"],
-        [ "pid"=>13, "product_name"=>"Apple Watch", "price"=>"$380", "category"=>"Watch"],
-        [ "pid"=>14, "product_name"=>"lenovo Laptop", "price"=>"$420", "category"=>"Laptop"],
-        [ "pid"=>15, "product_name"=>"joes Laptop", "price"=>"$920", "category"=>"Laptop"] 
+        ["_id"=>1, "product_name"=>"Apple IPhone 6", "price"=>"$630", "category"=>"Mobile Phone" ],
+        [ "_id"=>3, "product_name"=>"Samsung T.V", "price"=>"$900", "category"=>"Electronics"],
+        [ "_id"=>4, "product_name"=>"Apple IPAD", "price"=>"$400", "category"=>"Tablet" ],
+        [ "_id"=>5, "product_name"=>"MacBook Pro", "price"=>"$800", "category"=>"Laptop"],
+        [ "_id"=>6, "product_name"=>"Dell Laptop", "price"=>"$620", "category"=>"Laptop"],
+        ["_id"=>7, "product_name"=>"Canon EOS 700D DSLR Camera", "price"=>"$400", "category"=>"Camera"], 
+        ["_id"=>8, "product_name"=>"Nikon D7100 DSLR Camera ", "price"=>"$440", "category"=>"Camera"],
+        ["_id"=>9, "product_name"=>"HTC Phone", "price"=>"$200", "category"=>"Mobile Phone"],
+        ["_id"=>10, "product_name"=>"LG Monitor", "price"=>"$500", "category"=>"Electronics"],
+        [ "_id"=>11, "product_name"=>"Samsung Printer", "price"=>"$320", "category"=>"Electronics"],
+        [ "_id"=>12, "product_name"=>"Samsung Gear Live Black - Made for Android", "price"=>"$250", "category"=>"Watch"],
+        [ "_id"=>13, "product_name"=>"Apple Watch", "price"=>"$380", "category"=>"Watch"],
+        [ "_id"=>14, "product_name"=>"lenovo Laptop", "price"=>"$420", "category"=>"Laptop"],
+        [ "_id"=>15, "product_name"=>"joes Laptop", "price"=>"$920", "category"=>"Laptop"] 
         ];
 
     $mymongo = new mongoHelper('onlinestore','products'); // connect to db and collection
@@ -289,43 +241,27 @@ if($argv[1] == 'run_tests'){
     
     $ids = $mymongo->insert($products);         // insert array of products
     
-    $mymongo->delete([['pid'=>9]]);             // delete product with id == 9
+    $mymongo->delete([['_id'=>9]]);             // delete product with id == 9
     $mymongo->delete([['price' => '$420']]);    // delete product with price == '420'
     
     //query(filter_array,projection_array);
     //filter = key value pairs to match items in the db
     //project = key value pairs of what to return in the result array
     //This query finds all items with category == laptop and only return the price.
-    //The pid is always in the result unless you explicitly exclude it like below.
+    //The _id is always in the result unless you explicitly exclude it like below.
     $docs = $mymongo->query(["category"=>"Laptop"],["_id"=>0,"price"=>1]);
     print_r($docs);
     
     //update($filter,$new_values)
     //This update finds the product with id==15 and updates its product name
     //    from joes laptop to bobs laptop
-    $res = $mymongo->update(["pid"=>15],["product_name"=>"bobs Laptop"]);
+    $res = $mymongo->update(["_id"=>15],["product_name"=>"bobs Laptop"]);
     
     //This returns all items from db.collection
     $docs = $mymongo->query();
     print_r($docs);
-	$options = [
-		/* Only return the following fields in the matching documents */
-		'projection' => [
-			'_id' => 0,
-			'product_name' =>0,
-			'price' =>0,
-			'category' =>0
-		],
-		/* Return the documents in descending order of views */
-		'sort' => [
-			'pid' => -1
-		],
-	];
-	$max = $mymongo->query([],$options);
-	print_r($max[0]);
-	$max = $mymongo->get_max_id('memes','users','uid');
-	print_r($max);
 }
+
 
 
 

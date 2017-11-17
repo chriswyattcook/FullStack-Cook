@@ -4,7 +4,6 @@ error_reporting(1);
 //http://zetcode.com/db/mongodbphp/
 //http://coreymaynard.com/blog/creating-a-restful-api-with-php/
 //https://programmerblog.net/php-mongodb-tutorial/
-
 require('mongo_helper.php');
 abstract class API
 {
@@ -36,7 +35,6 @@ abstract class API
      * Stores the input of the PUT request
      */
     protected $file = null;
-
     /**
      * Constructor: __construct
      * Allow for CORS, assemble and pre-process the data
@@ -49,7 +47,6 @@ abstract class API
         
         $this->logger = new thelog();
         $this->logger->clear_log();
-
         $this->method = $_SERVER['REQUEST_METHOD'];
         $this->request_uri = $_SERVER['REQUEST_URI'];
         
@@ -64,8 +61,6 @@ abstract class API
         }
         
         $this->endpoint = array_shift($this->args);
-
-
         if (strpos($this->endpoint, '?')) {
             list($this->endpoint,$urlargs) = explode('?', $this->endpoint);
         }
@@ -73,7 +68,6 @@ abstract class API
         $this->logger->do_log($this->args, "args array:");
         $this->logger->do_log($this->endpoint, "endpoint:");
         
-
         switch ($this->method) {
             case 'POST':
                 $this->request = $this->_cleanInputs($_POST);
@@ -108,13 +102,11 @@ abstract class API
         }
         return $this->_response("No Endpoint: $this->endpoint", 404);
     }
-
     private function _response($data, $status = 200)
     {
         header("HTTP/1.1 " . $status . " " . $this->_requestStatus($status));
         return json_encode($data);
     }
-
     private function _cleanInputs($data)
     {
         $clean_input = array();
@@ -127,7 +119,6 @@ abstract class API
         }
         return $clean_input;
     }
-
     private function _requestStatus($code)
     {
         $status = array(
@@ -139,7 +130,6 @@ abstract class API
         return ($status[$code])?$status[$code]:$status[500];
     }
 }
-
 class MyAPI extends API
 {
     public function __construct()
@@ -152,8 +142,6 @@ class MyAPI extends API
         $this->mh->setDbcoll('users');
         $this->temparray = [];
     }
-
-
     /**
      * Example of an Endpoint
      */
@@ -168,11 +156,9 @@ class MyAPI extends API
             } else {
                 $size=100;
             }
-
             $data = file_get_contents("https://randomuser.me/api/?results={$size}&nat=us&exc=id");
             if ($data) {
                 $data = json_decode($data, true);
-
                 foreach ($data['results'] as $user) {
                     $this->temparray = [];
                     $max_id = $this->mh->get_max_id($this->mdb, $this->mh->collection, '_id');
@@ -186,8 +172,6 @@ class MyAPI extends API
         }
         return $results;
     }
-
-
     private function flatten_array($array){
         foreach($array as $key => $value){
             //If $value is an array.
@@ -200,8 +184,6 @@ class MyAPI extends API
             }
         }
     }
-
-
     
     /**
      *add_user: adds a new user(s) to the collection
@@ -219,9 +201,7 @@ class MyAPI extends API
 		   
         } 
 		return $result;
-
     }
-
     /**
      *update_user: updates a user(s) in the collection
      */
@@ -239,7 +219,6 @@ class MyAPI extends API
         }
 		
     }
-
     /**
      *delete_user: removes a user(s) from the collection
      */
@@ -255,8 +234,6 @@ class MyAPI extends API
             return $result;
         }
     }
-
-
     /**
      *find_user: finds a user(s) from the collection
      */
@@ -270,12 +247,9 @@ class MyAPI extends API
         return $this->mh->query($newstuff);
         //return ["request"=>$newstuff,"method"=>$this->method];
     }
-
     private function clean_entry($entry){
         return stripslashes(strip_tags(urldecode($entry)));
     }
-
-
     /**
      *All things user.
      */
@@ -314,8 +288,6 @@ class MyAPI extends API
             return $result;
         }
     }
-
-
     private function addPrimaryKey($data, $coll, $key)
     {
         $max_id = $this->mh->get_max_id($this->mdb, $coll, $key);
@@ -348,9 +320,6 @@ class MyAPI extends API
         return count(array_filter(array_keys($array), 'is_string')) > 0;
     }
 }
-
-
 $api = new MyAPI();
 echo $api->processAPI();
-
 exit;
